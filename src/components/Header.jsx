@@ -15,11 +15,19 @@ export const Header = () => {
     const main = document.querySelector("html");
 
     useEffect(() => {
+        const dayIcon = document.querySelector("#theme-toggle-light-icon");
+        const nightIcon = document.querySelector("#theme-toggle-dark-icon");
+
         if (localStorage.getItem("theme")) {
-            if(localStorage.getItem("theme") == "light") {
-                null;
-            } else if(localStorage.getItem("theme") == "dark") {
+            if (localStorage.getItem("theme") == "light") {
+                dayIcon.classList.add("hidden");
+                nightIcon.classList.remove("hidden");
+
+            } else if (localStorage.getItem("theme") == "dark") {
                 main.classList.add("dark");
+                dayIcon.classList.remove("hidden");
+                nightIcon.classList.add("hidden");
+
             }
         }
     }, [])
