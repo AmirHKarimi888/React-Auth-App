@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { Sidebar } from "./Sidebar";
 
 export const Header = () => {
 
@@ -50,6 +51,15 @@ export const Header = () => {
         }
     }
 
+    let [sidebarView, setSidebarView] = useState(false);
+    const toggleSidebar = () => {
+        if(sidebarView === true) {
+            setSidebarView(false);
+        } else {
+            setSidebarView(true);
+        }
+    }
+
     return (
         <header>
             <div className="navbar">
@@ -76,10 +86,10 @@ export const Header = () => {
                                 <span className="sr-only">Open main menu</span>
                                 <i className="fa fa-bars text-xl"></i>
                             </button>
-
-                            <button type="button" class="hidden items-center text-sm rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
-                                <span class="sr-only">Open user menu</span>
-                                <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo" />
+                            
+                            <button onClick={ toggleSidebar } type="button" className="items-center text-sm rounded-full focus:ring-4" aria-expanded="false" data-dropdown-toggle="dropdown-user">
+                                <span className="sr-only">Open user menu</span>
+                                <img className="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo" />
                             </button>
                         </div>
 
@@ -103,9 +113,9 @@ export const Header = () => {
                             </li>
                         </ul>
                     </div>
-
+                    
+                    { sidebarView && <Sidebar /> }
                 </nav>
-
             </div>
         </header>
     )
