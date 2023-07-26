@@ -51,12 +51,13 @@ export const Header = () => {
         }
     }
 
-    let [sidebarView, setSidebarView] = useState(false);
     const toggleSidebar = () => {
-        if(sidebarView === true) {
-            setSidebarView(false);
+        const sidebar = document.querySelector("#sidebar");
+
+        if(sidebar.classList.contains("hidden")) {
+            sidebar.classList.remove("hidden");
         } else {
-            setSidebarView(true);
+            sidebar.classList.add("hidden");
         }
     }
 
@@ -87,7 +88,7 @@ export const Header = () => {
                                 <i className="fa fa-bars text-xl"></i>
                             </button>
                             
-                            <button onClick={ toggleSidebar } type="button" className="items-center text-sm rounded-full focus:ring-4" aria-expanded="false" data-dropdown-toggle="dropdown-user">
+                            <button onClick={ toggleSidebar } type="button" className="items-center text-sm rounded-full" aria-expanded="false" data-dropdown-toggle="dropdown-user">
                                 <span className="sr-only">Open user menu</span>
                                 <img className="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo" />
                             </button>
@@ -114,7 +115,7 @@ export const Header = () => {
                         </ul>
                     </div>
                     
-                    { sidebarView && <Sidebar /> }
+                    <Sidebar handlChange={ toggleSidebar } />
                 </nav>
             </div>
         </header>

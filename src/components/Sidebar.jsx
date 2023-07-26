@@ -1,11 +1,25 @@
 
-export const Sidebar = () => {
+export const Sidebar = (props) => {
+
+    const toggleSidebar = () => {
+        const sidebar = document.querySelector("#sidebar");
+
+        if(sidebar.classList.contains("hidden")) {
+            sidebar.classList.remove("hidden");
+        } else {
+            sidebar.classList.add("hidden");
+        }
+    }
 
     return (
-        <div className="fixed sidebar flex items-center ml-3 right-0" id="sidebar">
-            <aside id="logo-sidebar" className="fixed top-[73px] right-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x bg-white border-l border-gray-300 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
+        <div className="hidden fixed sidebar items-center pt-0 ml-3 right-0 w-[100%] h-[100%] backdrop-blur-sm bg-gray-700/30" id="sidebar" onClick={ toggleSidebar }>
+            <aside onClick={ (event) => { event.stopPropagation() } } id="logo-sidebar" className="fixed top-0 right-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x bg-white border-l border-gray-300 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
                 <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800  divide-y divide-gray-300">
-                    <div className="px-4 py-3" role="none">
+                    <div className="px-4 py-6" role="none">
+                        <button type="button" className=" pb-4 items-center text-sm rounded-full" aria-expanded="false" data-dropdown-toggle="dropdown-user">
+                            <span className="sr-only">Open user menu</span>
+                            <img className="w-10 h-10 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo" />
+                        </button>
                         <p className="text-sm text-gray-900 dark:text-white" role="none">
                             Neil Sims
                         </p>
@@ -13,7 +27,7 @@ export const Sidebar = () => {
                             neil.sims@flowbite.com
                         </p>
                     </div>
-                    <ul className="space-y-2 font-medium">
+                    <ul className="space-y-2 pt-6 font-medium">
                         <li>
                             <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                                 <svg className="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
