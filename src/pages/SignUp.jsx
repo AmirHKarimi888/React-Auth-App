@@ -4,6 +4,7 @@ import * as yup from "yup"
 import { useEffect, useState } from "react"
 import { useQuery } from "react-query"
 import { Action, url } from "../api"
+import axios from "axios"
 
 const schema = yup.object().shape({
     username: yup.string().required("Username is required"),
@@ -27,32 +28,36 @@ export const SignUp = () => {
 
     const { register, handleSubmit, formState: {errors} } = useForm({resolver: yupResolver(schema)});
 
+
     const onFormSubmit = (data) => {
-        const userExistanceCheck = document.querySelector("#userExistance");
+    const userExistanceCheck = document.querySelector("#userExistance");
 
         const newUser = {
             "id": users.length + 1,
             "username": data.username,
             "email": data.email,
-            "password": data.password
+            "password": data.password,
+            "userId": Math.round(Math.random() * 10000000000)
         }
 
-        users.map((user) => {
-            if(data.email == user.email && data.password == user.password) {
-                userExistanceCheck.classList.remove("hidden");
 
-                
-            } else {
-                userExistanceCheck.classList.add("hidden");
-                Action.post(url + "users", newUser)
-                .then(() => {
-                    console.log("signup successfully")
-                })
-                .catch(() => {
-                    console.log("signup failed")
-                })
+
+        let repeatitiveUser = users.filter((user) => {
+            if(data.email == user.email) {
+                return user;
             }
         })
+        
+
+        if(repeatitiveUser[0]) {
+            userExistanceCheck.classList.remove("hidden");
+        } else {
+            userExistanceCheck.classList.add("hidden");
+            Action.post(url + "users", newUser)
+            .then(()=> {
+                console.log("Signup successfully")
+            })
+        }
     }
 
     return (

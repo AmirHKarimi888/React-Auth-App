@@ -8,7 +8,8 @@ class Actions {
     }
 
     async get(url, data) {
-        await axios.get(url, data);
+        await axios.get(url, data)
+        .then(data);
     }
 
     async post(url, data) {
