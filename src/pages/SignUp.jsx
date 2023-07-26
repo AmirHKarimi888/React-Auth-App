@@ -1,7 +1,9 @@
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import { useQuery } from "react-query"
+import { Action, url } from "../api"
 
 const schema = yup.object().shape({
     username: yup.string().required("Username is required"),
@@ -13,9 +15,44 @@ const schema = yup.object().shape({
 
 export const SignUp = () => {
 
+    let [users, setUsers] = useState([]);
+
+    useQuery(["users"], () => {
+        Action.get(url + "users", (response) => {
+            users = response.data;
+            setUsers(users);
+        })
+    })
+
+
     const { register, handleSubmit, formState: {errors} } = useForm({resolver: yupResolver(schema)});
+
     const onFormSubmit = (data) => {
-        console.log(data.username)
+        const userExistanceCheck = document.querySelector("#userExistance");
+
+        const newUser = {
+            "id": users.length + 1,
+            "username": data.username,
+            "email": data.email,
+            "password": data.password
+        }
+
+        users.map((user) => {
+            if(data.email == user.email && data.password == user.password) {
+                userExistanceCheck.classList.remove("hidden");
+
+                
+            } else {
+                userExistanceCheck.classList.add("hidden");
+                Action.post(url + "users", newUser)
+                .then(() => {
+                    console.log("signup successfully")
+                })
+                .catch(() => {
+                    console.log("signup failed")
+                })
+            }
+        })
     }
 
     return (
@@ -49,6 +86,7 @@ export const SignUp = () => {
                     <p className="text-red-500 mt-2">{ errors.checked?.message }</p>
                 </div>
                 <button type="submit" id="submitBtn" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Register new account</button>
+                <p id="userExistance" className="hidden text-red-500 mt-2">User already exists</p>
             </form>
         </div>
     )

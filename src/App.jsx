@@ -6,26 +6,29 @@ import { SignUp } from './pages/SignUp'
 import { SignIn } from './pages/SignIn'
 import { NotFound } from './pages/NotFound'
 import { Header } from './components/Header'
+import { QueryClient, QueryClientProvider } from 'react-query'
 
 function App() {
 
 
   return (
     <div className="App">
-      <BrowserRouter>
-        <Header />
+      <QueryClientProvider client={new QueryClient()}>
+        <BrowserRouter>
+          <Header />
 
-        <main className='my-[200px]'>
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/signup' element={<SignUp />} />
-            <Route path='/signin' element={<SignIn />} />
-            <Route path='*' element={<NotFound />} />
-          </Routes>
-        </main>
+          <main className='my-[200px]'>
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/signup' element={<SignUp />} />
+              <Route path='/signin' element={<SignIn />} />
+              <Route path='*' element={<NotFound />} />
+            </Routes>
+          </main>
 
 
-      </BrowserRouter>
+        </BrowserRouter>
+      </QueryClientProvider>
     </div>
   )
 }
