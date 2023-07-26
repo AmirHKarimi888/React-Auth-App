@@ -54,7 +54,7 @@ export const Header = () => {
     const toggleSidebar = () => {
         const sidebar = document.querySelector("#sidebar");
 
-        if(sidebar.classList.contains("hidden")) {
+        if (sidebar.classList.contains("hidden")) {
             sidebar.classList.remove("hidden");
         } else {
             sidebar.classList.add("hidden");
@@ -80,15 +80,17 @@ export const Header = () => {
 
                             <button data-collapse-toggle="navbar-sticky" type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-white rounded-lg hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
                                 <span className="sr-only">Open main menu</span>
-                                <i className="fa fa-sign-in text-xl"></i>
-                            </button>                           
+                                <a href="/signup">
+                                    <i className="fa fa-sign-in text-xl"></i>
+                                </a>
+                            </button>
 
                             <button onClick={toggleVerticalNav} data-collapse-toggle="navbar-sticky" type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-white rounded-lg md:hidden hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
                                 <span className="sr-only">Open main menu</span>
                                 <i className="fa fa-bars text-xl"></i>
                             </button>
-                            
-                            <button onClick={ toggleSidebar } type="button" className="items-center text-sm rounded-full" aria-expanded="false" data-dropdown-toggle="dropdown-user">
+
+                            <button onClick={toggleSidebar} type="button" className="items-center text-sm rounded-full" aria-expanded="false" data-dropdown-toggle="dropdown-user">
                                 <span className="sr-only">Open user menu</span>
                                 <img className="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo" />
                             </button>
@@ -114,8 +116,8 @@ export const Header = () => {
                             </li>
                         </ul>
                     </div>
-                    
-                    <Sidebar handlChange={ toggleSidebar } />
+
+                    <Sidebar handlChange={toggleSidebar} />
                 </nav>
             </div>
         </header>
