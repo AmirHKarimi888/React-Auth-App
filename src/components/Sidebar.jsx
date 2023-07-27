@@ -1,6 +1,17 @@
+import { CheckSignOut } from "./CheckSignOut";
 
 export const Sidebar = (props) => {
     let signedUser = props.signedUser;
+
+    const toggleSignOutModal = () => {
+        const signOutModal = document.querySelector("#signOutModal");
+
+        if (signOutModal.classList.contains("hidden")) {
+            signOutModal.classList.remove("hidden");
+        } else {
+            signOutModal.classList.add("hidden");
+        }
+    }
 
     return (
         <div className="hidden fixed sidebar items-center pt-0 ml-3 right-0 w-[100%] h-[100%] backdrop-blur-sm bg-gray-700/30" id="sidebar" onClick={ props.toggleSidebar }>
@@ -38,8 +49,8 @@ export const Sidebar = (props) => {
                                 <span className="flex-1 ml-3 whitespace-nowrap">Users</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <li onClick={ toggleSignOutModal }>
+                            <a className="flex cursor-pointer items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                                 <i className="fa fa-sign-out"></i>
                                 <span className="flex-1 ml-3 whitespace-nowrap">Sign Out</span>
                             </a>
@@ -47,6 +58,8 @@ export const Sidebar = (props) => {
                     </ul>
                 </div>
             </aside>
+
+            <CheckSignOut toggleSignOutModal={ toggleSignOutModal } signOut={ props.signOut } />
         </div>
     )
 }

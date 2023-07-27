@@ -84,6 +84,12 @@ export const Header = () => {
         })
     })
 
+    const signOut = () => {
+        signedUser = "";
+        setSignedUser(signedUser);
+        localStorage.setItem("signedUser", "")
+    }
+
 
 
     return (
@@ -142,7 +148,7 @@ export const Header = () => {
                         </ul>
                     </div>
 
-                    <Sidebar toggleSidebar={toggleSidebar} signedUser={signedUser} />
+                    <Sidebar toggleSidebar={toggleSidebar} signedUser={signedUser} signOut={signOut} />
                 </nav>
             </div>
         </header>
