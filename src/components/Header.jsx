@@ -8,7 +8,7 @@ export const Header = (props) => {
 
     const toggleSidebar = props.toggleSidebar;
   
-    let signedUser = props.signedUser;
+    const signedUser = props.signedUser;
 
     const signOut = props.signOut;
 

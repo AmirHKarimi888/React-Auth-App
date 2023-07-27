@@ -76,7 +76,11 @@ function App() {
   let [users, setUsers] = useState([]);
   let [signedUser, setSignedUser] = useState({});
 
-  useQuery(["users"], () => {
+  // useQuery(["users"], () => {
+
+  // })
+
+  useEffect(() => {
     Action.get(url + "users", (response) => {
       users = response.data;
       setUsers(users);
@@ -91,7 +95,7 @@ function App() {
           })
         }
       })
-  })
+  }, [])
 
   const signOut = () => {
     signedUser = "";
@@ -103,7 +107,6 @@ function App() {
     const toggleSidebarBtn = document.querySelector("#toggleSidebarBtn");
     if (localStorage.getItem("signedUser") !== "") {
       toggleSidebarBtn.classList.remove("hidden");
-      console.log(signedUser)
     } else {
       toggleSidebarBtn.classList.add("hidden");
     }

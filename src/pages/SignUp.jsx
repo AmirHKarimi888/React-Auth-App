@@ -1,8 +1,7 @@
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
-import {  useState } from "react"
-import { useQuery } from "react-query"
+import {  useEffect, useState } from "react"
 import { Action, url } from "../api"
 import { SignUpSuccess } from "../components/SignUpSuccess"
 import { SignUpFail } from "../components/SignUpFail"
@@ -10,7 +9,7 @@ import { SignUpFail } from "../components/SignUpFail"
 const schema = yup.object().shape({
     username: yup.string().required("Username is required"),
     email: yup.string().email().required("Email is required"),
-    password: yup.string().min(4).matches(/[a-z]+/).matches(/[A-Z]+/).matches(/\d+/).required(),
+    password: yup.string().min(8).matches(/[a-z]+/).matches(/[A-Z]+/).matches(/\d+/).required(),
     repeatPassword: yup.string().oneOf([yup.ref("password")], "Doesn't match the main password"),
     checked: yup.boolean().required("Must be checked")
 })
@@ -19,12 +18,12 @@ export const SignUp = () => {
 
     let [users, setUsers] = useState([]);
 
-    useQuery(["users"], () => {
+    useEffect(() => {
         Action.get(url + "users", (response) => {
             users = response.data;
             setUsers(users);
         })
-    })
+    }, [])
 
     const toggleSignUpSuccessModal = () => {
         const signUpSuccessModal = document.querySelector("#signUpSuccessModal");
