@@ -117,7 +117,7 @@ export const Header = () => {
                         </ul>
                     </div>
 
-                    <Sidebar handlChange={toggleSidebar} />
+                    <Sidebar toggleSidebar={toggleSidebar} />
                 </nav>
             </div>
         </header>

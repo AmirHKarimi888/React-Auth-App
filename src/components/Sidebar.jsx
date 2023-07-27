@@ -1,18 +1,8 @@
 
 export const Sidebar = (props) => {
 
-    const toggleSidebar = () => {
-        const sidebar = document.querySelector("#sidebar");
-
-        if(sidebar.classList.contains("hidden")) {
-            sidebar.classList.remove("hidden");
-        } else {
-            sidebar.classList.add("hidden");
-        }
-    }
-
     return (
-        <div className="hidden fixed sidebar items-center pt-0 ml-3 right-0 w-[100%] h-[100%] backdrop-blur-sm bg-gray-700/30" id="sidebar" onClick={ toggleSidebar }>
+        <div className="hidden fixed sidebar items-center pt-0 ml-3 right-0 w-[100%] h-[100%] backdrop-blur-sm bg-gray-700/30" id="sidebar" onClick={ props.toggleSidebar }>
             <aside onClick={ (event) => { event.stopPropagation() } } id="logo-sidebar" className="fixed top-0 right-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x bg-white border-l border-gray-300 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
                 <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800  divide-y divide-gray-300">
                     <div className="px-4 py-6" role="none">

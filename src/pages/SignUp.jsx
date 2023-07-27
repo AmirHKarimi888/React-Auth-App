@@ -1,10 +1,11 @@
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
-import { useEffect, useState } from "react"
+import {  useState } from "react"
 import { useQuery } from "react-query"
 import { Action, url } from "../api"
-import axios from "axios"
+import { SignUpSuccess } from "../components/SignUpSuccess"
+import { SignUpFail } from "../components/SignUpFail"
 
 const schema = yup.object().shape({
     username: yup.string().required("Username is required"),
@@ -25,9 +26,29 @@ export const SignUp = () => {
         })
     })
 
+    const toggleSignUpSuccessModal = () => {
+        const signUpSuccessModal = document.querySelector("#signUpSuccessModal");
+
+        if(signUpSuccessModal.classList.contains("hidden")) {
+            signUpSuccessModal.classList.remove("hidden");
+        } else {
+            signUpSuccessModal.classList.add("hidden");
+        }
+    }
+
+    const toggleSignUpFailModal = () => {
+        const signUpFailModal = document.querySelector("#signUpFailModal");
+
+        if(signUpFailModal.classList.contains("hidden")) {
+            signUpFailModal.classList.remove("hidden");
+        } else {
+            signUpFailModal.classList.add("hidden");
+        }
+    }
+
+
 
     const { register, handleSubmit, formState: {errors} } = useForm({resolver: yupResolver(schema)});
-
 
     const onFormSubmit = (data) => {
     const userExistanceCheck = document.querySelector("#userExistance");
@@ -55,7 +76,10 @@ export const SignUp = () => {
             userExistanceCheck.classList.add("hidden");
             Action.post(url + "users", newUser)
             .then(()=> {
-                console.log("Signup successfully")
+                toggleSignUpSuccessModal();
+            })
+            .catch(() => {
+                toggleSignUpFailModal();
             })
         }
     }
@@ -93,6 +117,9 @@ export const SignUp = () => {
                 <button type="submit" id="submitBtn" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Register new account</button>
                 <p id="userExistance" className="hidden text-red-500 mt-2">User already exists</p>
             </form>
+
+            <SignUpSuccess toggleSignUpSuccessModal={ toggleSignUpSuccessModal } />
+            <SignUpFail toggleSignUpFailModal={ toggleSignUpFailModal } />
         </div>
     )
 }
