@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
 import { Sidebar } from "./Sidebar";
+import { useQuery } from "react-query";
+import { Action, url } from "../api";
 
 export const Header = () => {
 
@@ -61,6 +63,29 @@ export const Header = () => {
         }
     }
 
+
+    let [users, setUsers] = useState([]);
+    let [signedUser, setSignedUser] = useState({});
+
+    useQuery(["users"], () => {
+        Action.get(url + "users", (response) => {
+            users = response.data;
+            setUsers(users);
+        })
+        .then(() => {
+            if(localStorage.getItem("signedUser")) {
+                users.filter((user) => {
+                    if(parseInt(localStorage.getItem("signedUser")) === parseInt(user.userId)) {
+                        signedUser = user;
+                        setSignedUser(signedUser);
+                    }
+                })
+            }
+        })
+    })
+
+
+
     return (
         <header>
             <div className="navbar">
@@ -92,7 +117,7 @@ export const Header = () => {
 
                             <button onClick={toggleSidebar} type="button" className="items-center text-sm rounded-full" aria-expanded="false" data-dropdown-toggle="dropdown-user">
                                 <span className="sr-only">Open user menu</span>
-                                <img className="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo" />
+                                <img className="w-8 h-8 rounded-full" src={ signedUser?.avatar } alt="user photo" />
                             </button>
                         </div>
 
@@ -117,7 +142,7 @@ export const Header = () => {
                         </ul>
                     </div>
 
-                    <Sidebar toggleSidebar={toggleSidebar} />
+                    <Sidebar toggleSidebar={toggleSidebar} signedUser={signedUser} />
                 </nav>
             </div>
         </header>

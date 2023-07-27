@@ -46,8 +46,6 @@ export const SignUp = () => {
         }
     }
 
-
-
     const { register, handleSubmit, formState: {errors} } = useForm({resolver: yupResolver(schema)});
 
     const onFormSubmit = (data) => {
@@ -57,8 +55,10 @@ export const SignUp = () => {
             "id": users.length + 1,
             "username": data.username,
             "email": data.email,
+            "avatar": `https://xsgames.co/randomusers/assets/avatars/pixel/${users.length + 1}.jpg`,
             "password": data.password,
-            "userId": Math.round(Math.random() * 10000000000)
+            "userId": Math.round(Math.random() * 10000000000),
+            "role": "User"
         }
 
 
@@ -77,6 +77,7 @@ export const SignUp = () => {
             Action.post(url + "users", newUser)
             .then(()=> {
                 toggleSignUpSuccessModal();
+                localStorage.setItem("signedUser", newUser.userId);
             })
             .catch(() => {
                 toggleSignUpFailModal();
@@ -86,7 +87,7 @@ export const SignUp = () => {
 
     return (
         <div className="signUp">
-            <form onSubmit={ handleSubmit(onFormSubmit) } className="w-[315px] mx-auto border border-gray-400 rounded-lg bg-gray-100 shadow-lg p-5 dark:bg-gray-800">
+            <form onSubmit={ handleSubmit(onFormSubmit) } className="w-[315px] mx-auto border border-gray-400 rounded-lg bg-gray-100 shadow-lg p-5 dark:bg-gray-800 dark:border-gray-700">
                 <div className="mb-6">
                     <label htmlFor="username" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
                     <input type="text" {...register("username")} id="username" className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="username" required />
