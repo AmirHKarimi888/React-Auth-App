@@ -90,7 +90,15 @@ export const Header = () => {
         localStorage.setItem("signedUser", "")
     }
 
-
+    useEffect(() => {
+        const toggleSidebarBtn = document.querySelector("#toggleSidebarBtn");
+        if(localStorage.getItem("signedUser") !== "") {
+            toggleSidebarBtn.classList.remove("hidden");
+            console.log(signedUser)
+        } else {
+            toggleSidebarBtn.classList.add("hidden");
+        }
+    }, [localStorage.getItem("signedUser")])
 
     return (
         <header>
@@ -121,7 +129,7 @@ export const Header = () => {
                                 <i className="fa fa-bars text-xl"></i>
                             </button>
 
-                            <button onClick={toggleSidebar} type="button" className="items-center text-sm rounded-full" aria-expanded="false" data-dropdown-toggle="dropdown-user">
+                            <button onClick={toggleSidebar} type="button" id="toggleSidebarBtn" className="hidden items-center text-sm rounded-full" aria-expanded="false" data-dropdown-toggle="dropdown-user">
                                 <span className="sr-only">Open user menu</span>
                                 <img className="w-8 h-8 rounded-full" src={ signedUser?.avatar } alt="user photo" />
                             </button>
