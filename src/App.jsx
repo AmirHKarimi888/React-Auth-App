@@ -10,6 +10,7 @@ import { SignIn } from './pages/SignIn'
 import { NotFound } from './pages/NotFound'
 import { Header } from './components/Header'
 import { Dashboard } from './pages/Dashboard'
+import { Footer } from './components/Footer'
 
 
 function App() {
@@ -128,7 +129,7 @@ function App() {
           </Routes>
         </main>
 
-
+        <Footer />
       </BrowserRouter>
 
     </div>
