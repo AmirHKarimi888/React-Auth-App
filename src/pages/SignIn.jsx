@@ -48,6 +48,9 @@ export const SignIn = () => {
             localStorage.setItem("signedUser", user[0].userId);
             userMatchCheck.innerHTML = "";
             toggleSignInSuccessModal();
+            setTimeout(() => {
+                window.location.href="/dashboard";
+            }, 1000)
         } else {
             userMatchCheck.innerHTML = "User doesn't exist";
         }

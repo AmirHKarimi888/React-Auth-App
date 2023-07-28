@@ -9,7 +9,7 @@ import { SignUp } from './pages/SignUp'
 import { SignIn } from './pages/SignIn'
 import { NotFound } from './pages/NotFound'
 import { Header } from './components/Header'
-import { useQuery } from "react-query"
+import { Dashboard } from './pages/Dashboard'
 
 
 function App() {
@@ -76,10 +76,6 @@ function App() {
   let [users, setUsers] = useState([]);
   let [signedUser, setSignedUser] = useState({});
 
-  // useQuery(["users"], () => {
-
-  // })
-
   useEffect(() => {
     Action.get(url + "users", (response) => {
       users = response.data;
@@ -100,7 +96,10 @@ function App() {
   const signOut = () => {
     signedUser = "";
     setSignedUser(signedUser);
-    localStorage.setItem("signedUser", "")
+    localStorage.setItem("signedUser", "");
+    setTimeout(() => {
+      window.location.href="/";
+    }, 1000)
   }
 
   useEffect(() => {
@@ -124,6 +123,7 @@ function App() {
               <Route path='/' element={<Home />} />
               <Route path='/signup' element={<SignUp />} />
               <Route path='/signin' element={<SignIn />} />
+              <Route path='/dashboard' element={<Dashboard />} />
               <Route path='*' element={<NotFound />} />
             </Routes>
           </main>

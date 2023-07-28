@@ -33,7 +33,7 @@ export const Sidebar = (props) => {
                     </div>
                     <ul className="space-y-2 pt-6 font-medium">
                         <li>
-                            <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <a href="/dashboard" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                                 <i className="fa fa-dashboard"></i>
                                 <span className="ml-3">Dashboard</span>
                             </a>

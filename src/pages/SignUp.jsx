@@ -78,6 +78,11 @@ export const SignUp = () => {
                 toggleSignUpSuccessModal();
                 localStorage.setItem("signedUser", newUser.userId);
             })
+            .then(() => {
+                setTimeout(() => {
+                    window.location.href = "/dashboard";
+                }, 1000)
+            })
             .catch(() => {
                 toggleSignUpFailModal();
             })
