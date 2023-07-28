@@ -130,7 +130,7 @@ function App() {
       <BrowserRouter>
         <Header toggleVerticalNav={toggleVerticalNav} toggleTheme={toggleTheme} toggleSidebar={toggleSidebar} signedUser={signedUser} signOut={signOut} />
 
-        <main className='my-[240px]'>
+        <main className='mt-[250px]'>
           <Routes >
             <Route path='/' element={<Home />} />
             <Route path='/signup' element={ localStorage.getItem("signedUser") != "" ? <Dashboard signedUser={signedUser} /> : <SignUp /> } />

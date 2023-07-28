@@ -5,7 +5,7 @@ export const Dashboard = (props) => {
     return (
         <div className="dashboard">
             
-<div class="w-full mx-auto max-w-sm bg-gray-200 border border-gray-400 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
+<div class="w-[300px] mx-auto max-w-sm bg-gray-200 border border-gray-400 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
     <div class="flex justify-end px-4 pt-4">
     </div>
     <div class="flex flex-col items-center pb-10">

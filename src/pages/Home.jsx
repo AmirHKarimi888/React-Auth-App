@@ -4,7 +4,7 @@ export const Home = () => {
     return (
 
         <div className="home">
-            <div class="mx-auto max-w-sm p-6 bg-gray-200 border border-gray-400 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
+            <div class="mx-auto w-[330px] p-6 bg-gray-200 border border-gray-400 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
                 <a href="#">
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Authentication App</h5>
                 </a>
