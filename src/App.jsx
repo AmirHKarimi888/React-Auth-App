@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes, redirect } from 'react-router-dom'
 import './App.css'
 
 import { useEffect, useState } from "react"
@@ -98,7 +98,7 @@ function App() {
     setSignedUser(signedUser);
     localStorage.setItem("signedUser", "");
     setTimeout(() => {
-      window.location.href="/";
+      window.location.href = "/";
     }, 1000)
   }
 
@@ -113,25 +113,25 @@ function App() {
 
 
   return (
-      <div className="App">
+    <div className="App">
 
-        <BrowserRouter>
-          <Header toggleVerticalNav={toggleVerticalNav} toggleTheme={toggleTheme} toggleSidebar={toggleSidebar} signedUser={signedUser} signOut={signOut} />
+      <BrowserRouter>
+        <Header toggleVerticalNav={toggleVerticalNav} toggleTheme={toggleTheme} toggleSidebar={toggleSidebar} signedUser={signedUser} signOut={signOut} />
 
-          <main className='my-[200px]'>
-            <Routes>
-              <Route path='/' element={<Home />} />
-              <Route path='/signup' element={<SignUp />} />
-              <Route path='/signin' element={<SignIn />} />
-              <Route path='/dashboard' element={<Dashboard />} />
-              <Route path='*' element={<NotFound />} />
-            </Routes>
-          </main>
+        <main className='my-[200px]'>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/signup' element={ localStorage.getItem("signedUser") != "" ? <Dashboard /> : <SignUp /> } />
+            <Route path='/signin' element={ localStorage.getItem("signedUser") != "" ? <Dashboard /> : <SignIn /> } />
+            <Route path='/dashboard' element={ localStorage.getItem("signedUser") == "" ? <SignUp /> : <Dashboard /> } />
+            <Route path='*' element={<NotFound />} />
+          </Routes>
+        </main>
 
 
-        </BrowserRouter>
+      </BrowserRouter>
 
-      </div>
+    </div>
   )
 }
 
