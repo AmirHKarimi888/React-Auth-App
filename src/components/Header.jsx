@@ -19,8 +19,8 @@ export const Header = (props) => {
                 <nav className=" bg-sky-600 dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-300 dark:border-gray-600">
                     <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                         <a href="/" className="flex items-center">
-                            <img src="https://flowbite.com/docs/images/logo.svg" className="h-8 mr-3" alt="Flowbite Logo" />
-                            <span className="self-center text-2xl font-semibold whitespace-nowrap text-white dark:text-white">AmirHK888</span>
+                            
+                            <span className="self-center text-2xl font-semibold whitespace-nowrap text-white dark:text-white">Auth App</span>
                         </a>
 
                         <div className="flex md:order-2 gap-3">

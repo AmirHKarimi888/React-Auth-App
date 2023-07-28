@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes, redirect } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
 
 import { useEffect, useState } from "react"
@@ -113,23 +113,34 @@ function App() {
   }, [localStorage.getItem("signedUser")])
 
 
+
+  let [showSkeleton, setShowSkeleton] = useState(true);
+  let [showMain, setShowMain] = useState(false);
+   
+  useEffect(() => {
+    if(document.readyState === 'ready' || document.readyState === 'complete') {
+      setShowSkeleton(false);
+      setShowMain(true);
+    }
+  }, [document.readyState])
+
   return (
     <div className="App">
 
       <BrowserRouter>
         <Header toggleVerticalNav={toggleVerticalNav} toggleTheme={toggleTheme} toggleSidebar={toggleSidebar} signedUser={signedUser} signOut={signOut} />
 
-        <main className='my-[200px]'>
-          <Routes>
+        <main className='my-[240px]'>
+          <Routes >
             <Route path='/' element={<Home />} />
-            <Route path='/signup' element={ localStorage.getItem("signedUser") != "" ? <Dashboard /> : <SignUp /> } />
-            <Route path='/signin' element={ localStorage.getItem("signedUser") != "" ? <Dashboard /> : <SignIn /> } />
-            <Route path='/dashboard' element={ localStorage.getItem("signedUser") == "" ? <SignUp /> : <Dashboard /> } />
+            <Route path='/signup' element={ localStorage.getItem("signedUser") != "" ? <Dashboard signedUser={signedUser} /> : <SignUp /> } />
+            <Route path='/signin' element={ localStorage.getItem("signedUser") != "" ? <Dashboard signedUser={signedUser} /> : <SignIn /> } />
+            <Route path='/dashboard' element={ localStorage.getItem("signedUser") == "" ? <SignUp /> : <Dashboard signedUser={signedUser} /> } />
             <Route path='*' element={<NotFound />} />
           </Routes>
         </main>
 
-        <Footer />
+        <Footer/>
       </BrowserRouter>
 
     </div>
