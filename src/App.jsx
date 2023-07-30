@@ -105,14 +105,40 @@ function App() {
 
   useEffect(() => {
     const toggleSidebarBtn = document.querySelector("#toggleSidebarBtn");
-    if (localStorage.getItem("signedUser") !== "") {
-      toggleSidebarBtn.classList.remove("hidden");
+    if("signedUser" in localStorage) {
+      if (localStorage.getItem("signedUser") !== "") {
+        toggleSidebarBtn.classList.remove("hidden");
+      } else {
+        toggleSidebarBtn.classList.add("hidden");
+      }
     } else {
       toggleSidebarBtn.classList.add("hidden");
     }
   }, [localStorage.getItem("signedUser")])
 
+  const showSignup = () => {
+    if("signedUser" in localStorage) {
+      if(localStorage.getItem("signedUser") == "") {
+        return <SignUp />
+      } else {
+        return <Dashboard signedUser={signedUser} />
+      }
+    } else {
+      return <SignUp />
+    }
+  }
 
+  const showSignin = () => {
+    if("signedUser" in localStorage) {
+      if(localStorage.getItem("signedUser") == "") {
+        return <SignIn />
+      } else {
+        return <Dashboard signedUser={signedUser} />
+      }
+    } else {
+      return <SignIn />
+    }
+  }
 
   let [showSkeleton, setShowSkeleton] = useState(true);
   let [showMain, setShowMain] = useState(false);
@@ -130,12 +156,12 @@ function App() {
       <BrowserRouter>
         <Header toggleVerticalNav={toggleVerticalNav} toggleTheme={toggleTheme} toggleSidebar={toggleSidebar} signedUser={signedUser} signOut={signOut} />
 
-        <main className='mt-[250px]'>
+        <main className='my-[250px]'>
           <Routes >
             <Route path='/' element={<Home />} />
-            <Route path='/signup' element={ localStorage.getItem("signedUser") != "" ? <Dashboard signedUser={signedUser} /> : <SignUp /> } />
-            <Route path='/signin' element={ localStorage.getItem("signedUser") != "" ? <Dashboard signedUser={signedUser} /> : <SignIn /> } />
-            <Route path='/dashboard' element={ localStorage.getItem("signedUser") == "" ? <SignUp /> : <Dashboard signedUser={signedUser} /> } />
+            <Route path='/signup' element={ showSignup() } />
+            <Route path='/signin' element={ showSignin() } />
+            <Route path='/dashboard' element={ showSignup() } />
             <Route path='*' element={<NotFound />} />
           </Routes>
         </main>
